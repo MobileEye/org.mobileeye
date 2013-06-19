@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) Aakash Polra. 2013.
+ * 
+ * Licensed under The Non-Profit Open Software License version 3.0 (NPOSL-3.0).
+ * Full license terms are available on the Open Source Initiative website.
+ * http://opensource.org/licenses/NPOSL-3.0
+ */
 package org.mobileeye.ai.objects.impl.opencv;
 
 import java.util.ArrayList;
@@ -7,6 +14,7 @@ import java.util.List;
 import org.mobileeye.ai.objects.BoundingBox;
 import org.mobileeye.ai.objects.ObjectRecognition;
 import org.mobileeye.ai.objects.Point2d;
+import org.mobileeye.ai.objects.RecognitionAcceptanceStrategy;
 import org.mobileeye.ai.objects.RecognizedObject;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.Core;
@@ -26,7 +34,7 @@ import org.opencv.highgui.Highgui;
 /**
  * Object Recognition using feature points matching and OpenCV library.
  * 
- * @author Aakash
+ * @author Aakash Polra
  */
 public class ObjectRecognitionImpl implements ObjectRecognition<Mat, String> {
 
@@ -90,7 +98,7 @@ public class ObjectRecognitionImpl implements ObjectRecognition<Mat, String> {
 	}
 
 	@Override
-	public List<RecognizedObject<String>> recognizeObjects(Mat scene, double minimumMatchingPercentageThreshold) {
+	public List<RecognizedObject<String>> recognizeObjects(Mat scene, RecognitionAcceptanceStrategy<String> acceptanceStrategy) {
 		
 		for(RecognizableObject r : recognizableObjects) {
 			r.clearGoodMatches();
@@ -141,9 +149,6 @@ public class ObjectRecognitionImpl implements ObjectRecognition<Mat, String> {
 			}
 			
 			final double matchPercent = goodMatchesArray.length / (double)recognizableObject.getKeyPoints().rows();
-			if (matchPercent < minimumMatchingPercentageThreshold) {
-				continue;	// the match is not good enough
-			}
 			
 			// Localize the object
 			Point[] objectPoints = new Point[goodMatchesArray.length];
@@ -176,8 +181,14 @@ public class ObjectRecognitionImpl implements ObjectRecognition<Mat, String> {
 					new Point2d(sceneCorners[2].x, sceneCorners[2].y),
 					new Point2d(sceneCorners[3].x, sceneCorners[3].y));
 			
-			recognizedObjects.add(new RecognizedObject<String>(recognizableObject.getIdentifier(), objectBoundingBox,
-					(float)matchPercent, recognizableObject.getIdentifier()));
+			RecognizedObject<String> recognizedObject = new RecognizedObject<String>(recognizableObject.getIdentifier(), objectBoundingBox,
+					(float)matchPercent, recognizableObject.getIdentifier());
+			
+			if (acceptanceStrategy.isAcceptable(recognizedObject)) {
+				recognizedObjects.add(recognizedObject);
+			} else {
+				// TODO : Log? possibly at trace level.
+			}
 		}
 		return recognizedObjects;
 	}

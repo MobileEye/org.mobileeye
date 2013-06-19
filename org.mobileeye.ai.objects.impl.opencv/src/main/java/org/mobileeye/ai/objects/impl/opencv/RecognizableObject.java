@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) Aakash Polra. 2013.
+ * 
+ * Licensed under The Non-Profit Open Software License version 3.0 (NPOSL-3.0).
+ * Full license terms are available on the Open Source Initiative website.
+ * http://opensource.org/licenses/NPOSL-3.0
+ */
 package org.mobileeye.ai.objects.impl.opencv;
 
 import java.util.ArrayList;
@@ -7,6 +14,13 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfKeyPoint;
 import org.opencv.features2d.DMatch;
 
+/**
+ * Represents an object used for performing recognition.
+ * 
+ * @author Aakash Polra
+ * 
+ * @see ObjectRecognitionImpl
+ */
 public class RecognizableObject {
 
 	private final String identifier;
@@ -27,19 +41,19 @@ public class RecognizableObject {
 	}
 	
 	public String getIdentifier() {
-		return identifier;
+		return this.identifier;
 	}
 	
 	public Mat getImage() {
-		return image;
+		return this.image;
 	}
 	
 	public MatOfKeyPoint getKeyPoints() {
-		return keyPoints;
+		return this.keyPoints;
 	}
 	
 	public Mat getDescriptors() {
-		return descriptors;
+		return this.descriptors;
 	}
 
 	// FIXME : delete this method

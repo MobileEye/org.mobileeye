@@ -45,6 +45,13 @@ public class AcceptOnlyValidBoundingBoxTest {
 
 	@Test
 	public void nonCrossingLine1() {
-		// TODO
+		boolean result = acceptanceStrategy.isAcceptable(new RecognizedObject<Object>(
+				"test-acceptable",
+				new BoundingBox(new Point2d(0.0,  0.0),
+						new Point2d(5.0,  3.85),
+						new Point2d(5.5,  -2.3),
+						new Point2d(3.4,  -2.31)),
+				1.0f, new Object()));
+		Assert.assertTrue(result);
 	}
 }

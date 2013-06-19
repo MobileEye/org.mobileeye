@@ -1,5 +1,17 @@
+/**
+ * Copyright (c) Aakash Polra. 2013.
+ * 
+ * Licensed under The Non-Profit Open Software License version 3.0 (NPOSL-3.0).
+ * Full license terms are available on the Open Source Initiative website.
+ * http://opensource.org/licenses/NPOSL-3.0
+ */
 package org.mobileeye.ai.objects;
 
+/**
+ * Represents a two-dimensional point that has coordinates stored with double precision.
+ * 
+ * @author Aakash Polra
+ */
 public class Point2d {
 
 	private double x;
@@ -11,11 +23,11 @@ public class Point2d {
 	}
 	
 	public double getX() {
-		return x;
+		return this.x;
 	}
 	
 	public double getY() {
-		return y;
+		return this.y;
 	}
 	
 	public void setX(final double x) {

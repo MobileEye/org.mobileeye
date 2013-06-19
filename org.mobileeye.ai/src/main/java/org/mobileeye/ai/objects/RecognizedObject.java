@@ -1,8 +1,16 @@
+/**
+ * Copyright (c) Aakash Polra. 2013.
+ * 
+ * Licensed under The Non-Profit Open Software License version 3.0 (NPOSL-3.0).
+ * Full license terms are available on the Open Source Initiative website.
+ * http://opensource.org/licenses/NPOSL-3.0
+ */
 package org.mobileeye.ai.objects;
 
 /**
+ * This class represents a Recognized Object containing arbitrary data of type D.
  * 
- * @author Aakash
+ * @author Aakash Polra
  *
  * @param <D> type of data to be stored with this object. For example, an Image
  */
@@ -22,18 +30,18 @@ public class RecognizedObject<D> {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public BoundingBox getBoundingBox() {
-		return boundingBox;
+		return this.boundingBox;
 	}
 
 	public float getConfidence() {
-		return confidence;
+		return this.confidence;
 	}
 
 	public D getObjectData() {
-		return objectData;
+		return this.objectData;
 	}
 }
